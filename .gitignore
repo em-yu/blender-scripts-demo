@@ -1,0 +1,5 @@
+*.blend1
+results_rendering/out/**
+!results_rendering/out/.gitkeep
+__pycache__
+.DS_Store
