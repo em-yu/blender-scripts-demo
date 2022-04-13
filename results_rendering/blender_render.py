@@ -15,8 +15,6 @@ ROOT_FOLDER = os.path.dirname(os.path.realpath(__file__))
 OUT_FOLDER = os.path.join(ROOT_FOLDER, 'out')
 
 
-
-# def render(output_path, camera, animation=False, resolution=1080, fps=24, rotation_start=0, rotation_end=360, ffmpeg=True):
 def render(output_path, camera, animation=False, resolution=1080, fps=24, frame_start=None, frame_end=None, ffmpeg=True):
     # output_path += '/'
     bpy.data.scenes['Scene'].render.filepath = output_path
@@ -65,12 +63,10 @@ def compute_frame_bounds_turntables(initial_frame_start, initial_frame_end, rota
     if rotation_start != 0:
         frame_start = max(1, math.floor(rotation_start * frames_per_degree))
         print("starting at frame", frame_start)
-        # bpy.data.scenes['Scene'].frame_start = frame_start
     if rotation_end != 360:
         print(rotation_end, frames_per_degree)
         frame_end = min(initial_frame_end, math.ceil(rotation_end * frames_per_degree))
         print("ending at frame", frame_end)
-        # bpy.data.scenes['Scene'].frame_end = frame_end
     return frame_start, frame_end
 
 if __name__ == "__main__":
@@ -137,7 +133,7 @@ if __name__ == "__main__":
                     break
 
                 for idx, ob in enumerate(res_objects):
-                    # if bpy.data.objects.get(f'{sketch_name}_result'):
+
                     ob.hide_render = False
 
                     out_file_suffix = f"_{idx}" if len(res_objects) > 1 else ""
