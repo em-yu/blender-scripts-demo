@@ -4,9 +4,9 @@ This is a more complex add-on example (see [the other add-on](../vertex_selector
 
 This example is intended to showcase:
 * Using external libraries installed via `pip` (here [potpourri3d](https://github.com/nmwsharp/potpourri3d))
-* Multi-file add-on development and release
+* Multi-file add-on development and release (this is simulated by having a separated `geodesic_project` subfolder that contains the logic to compute geodesic distances)
 
-For the multi-file add-on part, I based this on this very helpful and detailed blog post: [Creating multifile add-on for Blender](https://b3d.interplanety.org/en/creating-multifile-add-on-for-blender/). This solution has not been super thoroughly tested, but it seems to work for this simple example. The main feature of this implementation is that the add-on development is simplified:
+For the multi-file add-on part, I based this on this very helpful and detailed blog post: [Creating multifile add-on for Blender](https://b3d.interplanety.org/en/creating-multifile-add-on-for-blender/). This solution has not been super thoroughly tested, but it seems to work for this simple example. The main feature of this proposed implementation is that the add-on development is simplified:
 * No need to rezip everything and Install in Blender, simply run `debug_script.py` script from Blender text editor
 * Upon running this script, imported module `geodesic_project` is also reloaded, so changes to the code there will be taken into account
 
@@ -20,7 +20,7 @@ To see how the add-on works, you can use the provided blend file `geodesic_dista
 
 The add-on can be installed from the provided zip file: Edit > Preferences > Add-on > Install > select the zip file. Then tick the checkbox in front of the add-on item to install it. In case of errors, check the system console (after opening Blender from console).
 
-After opening the add-on panel, select some vertices on the mesh (in edit mode), click `Add Source Vertice` and click `Compute Geodesic Distance`. Here is what you should see:
+After opening the add-on panel, select some vertices on the mesh (in edit mode), click `Add Source Vertices` and click `Compute Geodesic Distance`. Here is what you should see:
 
 ![ui_sample](ui_sample.png)
 
