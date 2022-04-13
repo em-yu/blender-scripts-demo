@@ -1,21 +1,11 @@
-##### HOW TO INSTALL ADD-ON:
-# Go to Edit > Preferences > Add-ons
-# Click Install... > Select this file > Enable Add-on
-
-
-bl_info = {
-    "name": "Geodesic Distance Computation",
-    "blender": (2, 80, 0),
-    "category": "Object",
-}
-
 import bpy
-import os
-import subprocess
-from bpy_extras.io_utils import ImportHelper
 
 import potpourri3d as pp3d
 import numpy as np
+
+#### Load scripts from other files
+from geodesic_project.compute_geodesic_distance import compute
+
 
 
 def get_uv_layer(ob):
@@ -39,20 +29,6 @@ def get_uvs(ob):
             uv_values[vert_idx, 1] = uvs.data[loop_idx].uv[1]
 
     return uv_values
-
-def get_mesh_coordinates(ob):
-    count = len(ob.data.vertices)
-    V = np.empty(count * 3)
-    ob.data.vertices.foreach_get("co", V)
-    V.shape = (count, 3)
-    return V
-
-def get_mesh_faces(ob):
-    count = len(ob.data.vertices)
-    F = np.empty((0, 3), dtype=int)
-    for p in ob.data.polygons:
-        F = np.row_stack([F, p.vertices])
-    return F
 
 def get_selected_vertices():
     # If the current active object is not a mesh, return
@@ -91,13 +67,14 @@ class ComputeDistanceOperator(bpy.types.Operator):
     """Distance Computation Script"""          # Use this as a tooltip for menu items and buttons.
     bl_idname = "geodist.compute_operator"        # Unique identifier for buttons and menu items to reference.
     bl_label = "Compute Geodesic Distance"         # Display name in the interface.
-    # bl_options = {'REGISTER', 'UNDO'}  # Enable undo for the operator.
 
 
     def execute(self, context):
-        V = get_mesh_coordinates(context.scene.geodist_props.mesh_object)
-        F = get_mesh_faces(context.scene.geodist_props.mesh_object)
-        dist = pp3d.compute_distance_multisource(V,F,source_vertices_id)
+        # V = get_mesh_coordinates(context.scene.geodist_props.mesh_object)
+        # F = get_mesh_faces(context.scene.geodist_props.mesh_object)
+        # dist = pp3d.compute_distance_multisource(V,F,source_vertices_id)
+
+        dist = compute(context.scene.geodist_props.mesh_object, source_vertices_id)
 
         uv_values = get_uvs(context.scene.geodist_props.mesh_object)
 
@@ -195,10 +172,5 @@ def unregister():
     bpy.utils.unregister_class(ClearSourceVerticesOperator)
     bpy.utils.unregister_class(GeoDistancePanel)
 
-
-# This allows you to run the script directly from Blender's Text editor
-# to test the add-on without having to install it.
-if __name__ == "__main__":
-    register()
 
     
