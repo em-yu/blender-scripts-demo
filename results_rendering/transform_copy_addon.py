@@ -91,7 +91,6 @@ def register():
     bpy.utils.register_class(TransformCopyPanel)
 
 def unregister():
-    del bpy.types.Scene.selector_custom_props
     bpy.utils.unregister_class(LoadObjMeshOperator)
     bpy.utils.unregister_class(LocRotCopyOperator)
     bpy.utils.unregister_class(TransformCopyPanel)

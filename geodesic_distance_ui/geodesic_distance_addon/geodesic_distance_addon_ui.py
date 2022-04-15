@@ -1,10 +1,14 @@
 import bpy
+import sys
 
 import potpourri3d as pp3d
 import numpy as np
 
 #### Load scripts from other files
-from geodesic_project.compute_geodesic_distance import compute
+if 'DEBUG_MODE' in sys.argv:
+    from geodesic_project.compute_geodesic_distance import compute
+else:
+    from .geodesic_project.compute_geodesic_distance import compute
 
 
 
